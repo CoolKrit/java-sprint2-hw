@@ -1,0 +1,5 @@
+item_name,is_expense,quantity,unit_price
+Обслуживание колесо обозрения,TRUE,1,70000
+Попкорн,FALSE,1200,100
+Чистящие средства,TRUE,20,1500
+Сувениры,FALSE,500,250
