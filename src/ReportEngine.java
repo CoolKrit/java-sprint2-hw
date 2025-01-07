@@ -5,7 +5,7 @@ public class ReportEngine {
     YearlyReport yearlyReport;
     FileReader fileReader = new FileReader();
 
-    public void readMonthlyReports() {
+    void readMonthlyReports() {
         for (int i = 0; i < 3; i++) {
             ArrayList<String> lines = fileReader.readFileContents("m.20210" + (i + 1) + ".csv");
             MonthlyReport monthlyReport = new MonthlyReport();
@@ -15,7 +15,7 @@ public class ReportEngine {
         System.out.println("Месячные отчеты успешно считаны.");
     }
 
-    public void readYearlyReport() {
+    void readYearlyReport() {
         yearlyReport = new YearlyReport();
         yearlyReport.loadFromFile(fileReader.readFileContents("y.2021.csv"));
         System.out.println("Годовой отчёт успешно считан.");
@@ -44,7 +44,7 @@ public class ReportEngine {
         }
     }
 
-    public void printMonthlyReports() {
+    void printMonthlyReports() {
         if (monthlyReports[0] == null) {
             System.out.println("Месячные отчёты не были считаны. Сначала загрузите данные.");
             return;
@@ -61,22 +61,19 @@ public class ReportEngine {
         }
     }
 
-    public void printYearlyReport() {
+    void printYearlyReport() {
         if (yearlyReport == null) {
             System.out.println("Годовой отчёт не был считан. Сначала загрузите данные.");
             return;
         }
 
         System.out.println("Год: 2021");
+        System.out.println(yearlyReport.monthData.keySet());
         for (int i = 0; i < monthlyReports.length; i++) {
-            if (monthlyReports[i] == null) {
-                return;
-            }
-
-            System.out.println("Месяц: " + monthlyReports[i].monthsNames[i]);
-            System.out.println("Прибыль: " + (int) yearlyReport.getProfit(i + 1));
-            System.out.println("Cредний расход за все имеющиеся операции в году: " + (int) yearlyReport.getAvgExpense());
-            System.out.println("Cредний доход за все имеющиеся операции в году: " + (int) yearlyReport.getAvgIncome());
+            if (monthlyReports[i] == null) break;
+            System.out.println("Прибыль за " + monthlyReports[i].monthsNames[i] + ": " + (int) yearlyReport.getProfit(i + 1));
         }
+        System.out.println("Cредний расход за все имеющиеся операции в году: " + (int) yearlyReport.getAvgExpense());
+        System.out.println("Cредний доход за все имеющиеся операции в году: " + (int) yearlyReport.getAvgIncome());
     }
 }
